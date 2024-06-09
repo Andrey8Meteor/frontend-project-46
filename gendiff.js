@@ -1,23 +1,31 @@
 #!/usr/bin/env node
 
-const { program } = require('commander');
+const { Command } = require('commander');
+const parseJsonFile = require('./parser');
+const path = require('path');
+
+const program = new Command();
 
 program
-  .version('0.0.1')
+  .name('gendiff')
   .description('Compares two configuration files and shows a difference.')
-  .arguments('<filepath1> <filepath2>')
-  .option('-f, --format [type]', 'output format')
-  .action((filepath1, filepath2, options) => {
-    console.log(`Comparing files: ${filepath1} and ${filepath2}`);
-    if (options.format) {
-      console.log(`Output format: ${options.format}`);
+  .argument('<filepath1>', 'path to first file')
+  .argument('<filepath2>', 'path to second file')
+  .action((filepath1, filepath2) => {
+    try {
+      const data1 = parseJsonFile(filepath1);
+      const data2 = parseJsonFile(filepath2);
+
+      console.log('File 1 data:', data1);
+      console.log('File 2 data:', data2);
+
+      // Add comparison logic here
+      // For example, just to demonstrate:
+      console.log('Differences:', JSON.stringify(data1) !== JSON.stringify(data2) ? 'Files are different' : 'Files are the same');
+    } catch (error) {
+      console.error('Error processing files:', error);
     }
   });
-
-// Проверка, если нет аргументов или недостаточно аргументов, выводим справку
-if (process.argv.length < 4) {
-  program.help();
-}
 
 program.parse(process.argv);
 

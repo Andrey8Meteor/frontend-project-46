@@ -2,9 +2,10 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "Utility for comparing configuration files",
-  "main": "(index.js) gendiff.js",
+  "main": "gendiff.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node gendiff.js"
   },
   "keywords": [
     "diff",
@@ -17,6 +18,6 @@
     "commander": "^8.3.0"
   },
   "bin": {
-    "gendiff": "./gendiff.js"
+    "gendiff": "gendiff.js"
   }
 }
